@@ -168,11 +168,12 @@ export default function HomeSections() {
   const active = sections.find((s) => s.category.id === activeId) ?? sections[0];
 
   return (
-    <section className="bg-white py-20 md:py-28" aria-labelledby="napd-collections">
-      <div className="mx-auto max-w-[1360px] px-5 md:px-10">
-        <p id="napd-collections" className="napd-caps-wide text-center text-[11px] text-napd-muted">
-          {t("sections.eyebrow")}
-        </p>
+    <section className="editorial-shop" aria-labelledby="napd-collections">
+      <div className="editorial-shop-inner">
+        <div className="editorial-shop-heading">
+          <h2 id="napd-collections" className="editorial-shop-title">{t("sections.eyebrow")}</h2>
+          <p className="editorial-kicker">925 STERLING SILVER / NAPD</p>
+        </div>
 
         {loading ? (
           <>
@@ -194,7 +195,7 @@ export default function HomeSections() {
               <div
                 role="tablist"
                 aria-label={t("sections.eyebrow")}
-                className="scrollbar-hide -mx-5 mt-8 flex gap-8 overflow-x-auto px-5 md:mx-0 md:justify-center md:gap-14 md:px-0"
+                className="editorial-tabs scrollbar-hide -mx-5 mt-8 flex gap-8 overflow-x-auto px-5 md:mx-0 md:gap-14 md:px-0"
               >
                 {sections.map(({ category, meta }) => (
                   <button
@@ -214,7 +215,7 @@ export default function HomeSections() {
               <div
                 key={active.category.id}
                 role="tabpanel"
-                className="napd-tab-panel napd-row -mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 scrollbar-hide md:mx-0 md:mt-16 md:grid md:grid-cols-5 md:gap-x-8 md:overflow-visible md:px-0"
+                className="editorial-product-row napd-tab-panel napd-row -mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 scrollbar-hide md:mx-0 md:mt-10 md:grid md:gap-x-6 md:overflow-visible md:px-0"
               >
                 {active.items.map((product, i) => (
                   <ProductCard

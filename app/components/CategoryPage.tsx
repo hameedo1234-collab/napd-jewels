@@ -73,8 +73,8 @@ export default function CategoryPage({ dbName, title }: Props) {
   }, [dbName, isOwner]);
 
   return (
-    <section className="mx-auto max-w-[1360px] px-5 pb-24 pt-14 md:px-10 md:pt-20">
-      <div className="mb-14 text-center md:mb-20">
+    <section className="editorial-category mx-auto max-w-[1360px] px-5 pb-24 pt-14 md:px-10 md:pt-20">
+      <div className="editorial-category-heading mb-14 text-center md:mb-20">
         <Link href="/" className="napd-caps text-[10.5px] text-napd-muted transition-colors hover:text-napd-ink">
           {t("catpage.back")}
         </Link>
@@ -99,7 +99,7 @@ export default function CategoryPage({ dbName, title }: Props) {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="editorial-category-grid grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8 lg:grid-cols-4 xl:grid-cols-5">
           {Array.from({ length: 10 }).map((_, i) => (
             <ProductCardSkeleton key={i} />
           ))}
@@ -122,7 +122,7 @@ export default function CategoryPage({ dbName, title }: Props) {
           </a>
         </div>
       ) : (
-        <div className="napd-tab-panel grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="editorial-category-grid napd-tab-panel grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product) => (
             <ProductCard
               key={product.id}

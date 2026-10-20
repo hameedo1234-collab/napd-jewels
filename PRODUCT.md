@@ -13,9 +13,10 @@ WhatsApp is the real sales channel. The site works as a browsable catalog: custo
 Make a customer trust the brand within seconds and find a piece they want. Show real stock only: out-of-stock pieces are hidden from customers (owners still see everything).
 
 ## Brand
-- Colors: deep green #182B2A, deeper green #0E1B1A, gold #B08D57, light gold #D9C6A0, ivory #FAF7F1.
-- Logo: NAPD monogram with "JEWELS" in spaced capitals.
-- Feel: quiet luxury, cinematic, calm. Gold is an accent, never a fill for large areas.
+- Selected redesign (owner approved concept 04): monochrome editorial, fashion magazine composition, oversized serif headlines, clean rectangular cards and controls.
+- Colors: near black #161616, off-white #FAFAF8, neutral gray. Existing occasion palettes remain available.
+- Header/footer: NAPD typographic wordmark with JEWELS in spaced capitals; original logo assets remain intact.
+- Feel: confident, understated fashion editorial. Product photographs retain their original colors.
 - Product photos sit on white backgrounds (the standard for listings).
 
 ## Promises shown on the site
@@ -26,4 +27,8 @@ Make a customer trust the brand within seconds and find a piece they want. Show 
 ## Constraints
 - Next.js on Vercel, Supabase backend; product data is edited by the owner in the admin panel.
 - Prices are in Israeli shekels (₪).
-- Owner prefers refinement of the existing look over replacing it.
+- Owner approved replacing the storefront visual design with concept 04; preserve products, images, stock, pricing, discount calculation, authentication, cart, checkout and CRM integration.
+- Owner rejected the initial interpretation. The approved revision reproduces the original 04 / EDITORIAL board: centered NAPD wordmark, Shop / Collections / About navigation, search / saved / cart icons, original model image on the left, SILVER LIVES BOLDER on the right, and four adjacent collection photographs beneath. No additional home sections.
+- Original approved artwork is displayed through SVG viewBox clipping from editorial-reference.png; it is decorative collection art, not a product listing. Catalog pages continue using original live product photos, prices and inventory.
+- The reference home intentionally keeps its original English typography regardless of the catalog language. About provides account, language and contact controls; catalog pages remain bilingual.
+- Work stays in a review branch/local preview until the owner approves production release.

@@ -317,7 +317,7 @@ ${t("wa.link")}: ${productUrl}`;
   const lowStock = inStock && maxQty > 0 && maxQty <= 2;
 
   return (
-    <section className="bg-white pt-8 pb-20 md:pt-10">
+    <section className="editorial-pdp bg-white pt-8 pb-20 md:pt-10">
       <div className="max-w-[1200px] mx-auto px-5 md:px-6">
         {/* Breadcrumbs */}
         <nav

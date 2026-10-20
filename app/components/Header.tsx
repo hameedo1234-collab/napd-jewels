@@ -81,6 +81,17 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsAccountOpen(false);
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
+  useEffect(() => {
     let mounted = true;
 
     async function load() {
@@ -242,7 +253,7 @@ export default function Header() {
         <div className="napd-header-bar relative flex h-[72px] items-center justify-between md:h-[88px]">
           {/* LOGO: centred on phones, at the start on desktop */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 shrink-0">
-            <span role="img" aria-label="NAPD Jewels" className="napd-logo-mask napd-header-logo h-11 w-[50px] text-napd-bronze lg:h-[52px] lg:w-[60px]" />
+            <span className="editorial-wordmark" aria-label="NAPD Jewels" dir="ltr">NAPD<small>JEWELS</small></span>
           </Link>
 
           {/* DESKTOP NAV, centred like a maison's */}
@@ -289,6 +300,7 @@ export default function Header() {
             onClick={() => setIsOpen(!isOpen)}
             aria-label={t("nav.menu")}
             aria-expanded={isOpen}
+            aria-controls="napd-mobile-nav"
           >
             {isOpen ? (
               <X size={26} strokeWidth={1.5} />
@@ -326,6 +338,8 @@ export default function Header() {
                 <button
                   type="button"
                   disabled={authLoading}
+                  aria-expanded={isAccountOpen}
+                  aria-controls="napd-account-menu"
                   className="napd-caps inline-flex items-center justify-center text-[12px] text-napd-ink/75 transition-colors duration-200 hover:text-napd-ink disabled:opacity-60"
                   onClick={() => {
                     if (!userId) {
@@ -341,8 +355,13 @@ export default function Header() {
 
                 {userId && isAccountOpen && (
                   <div
+                    id="napd-account-menu"
                     className="absolute end-0 mt-3 w-44 overflow-hidden border border-napd-ink/10 bg-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.25)]"
                   >
+                    {isOwner && <>
+                      <Link href="/owner/orders" className="napd-caps block px-4 py-3 text-[12px] text-napd-ink hover:bg-napd-paper">{t("nav.orders")}{newOrdersCount > 0 ? ` (${newOrdersCount})` : ""}</Link>
+                      <Link href="/owner-dashboard" className="napd-caps block px-4 py-3 text-[12px] text-napd-ink hover:bg-napd-paper">{t("nav.dashboard")}</Link>
+                    </>}
                     <button
                       type="button"
                       className="napd-caps w-full text-start px-4 py-3 text-[12px] text-napd-ink/75 hover:text-napd-ink hover:bg-napd-paper transition-all"
@@ -380,6 +399,7 @@ export default function Header() {
       {/* MOBILE DROPDOWN MENU */}
       {isOpen && (
         <div
+          id="napd-mobile-nav"
           className="lg:hidden border-b border-napd-ink/10 bg-white px-6 py-7 space-y-6"
         >
           <Link
