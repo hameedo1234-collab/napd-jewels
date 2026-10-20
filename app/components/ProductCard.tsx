@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Tilt from "./Tilt";
+import SavePieceButton from "./SavePieceButton";
 import OccasionMotif from "./OccasionMotif";
 import { useLang } from "../context/LangContext";
 import { useOccasion } from "../context/OccasionContext";
@@ -44,9 +45,10 @@ export default function ProductCard({
   const { hasDiscount, pct, original, final } = priceInfo(product);
 
   return (
+    <div className={`ed4-product-wrap relative ${className}`}>
     <Link
       href={`/product/${product.id}`}
-      className={`napd-card group block rounded-md focus-visible:outline-none ${className}`}
+      className="napd-card group block rounded-md focus-visible:outline-none"
     >
       <Tilt max={6} lift={6}>
       <div
@@ -92,7 +94,7 @@ export default function ProductCard({
       </div>
       </Tilt>
 
-      <div className="mt-5 space-y-2 px-1 text-center">
+      <div className="napd-card-caption mt-5 space-y-2 px-1 text-center">
         <p className="napd-caps text-[10px] text-napd-muted">NAPD Jewels</p>
         <p className="napd-card-name truncate text-[12.5px] leading-snug text-napd-ink">
           {name}
@@ -109,6 +111,8 @@ export default function ProductCard({
         </p>
       </div>
     </Link>
+    <SavePieceButton id={product.id} name={name} />
+    </div>
   );
 }
 
