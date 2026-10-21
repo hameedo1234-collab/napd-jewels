@@ -40,6 +40,7 @@ export default function ReferenceHeader() {
   const count = cart.reduce((n, item) => n + item.quantity, 0);
   if (pathname !== "/") return <Header />;
   return <>
+    <div className="ed4-info-band" dir={lang === "ar" ? "rtl" : "ltr"} lang={lang}><span>{lang === "ar" ? "فضة إسترلينية 925 ومويسانيت" : "STERLING SILVER 925 & MOISSANITE"}</span><a href="https://wa.me/972593255260" target="_blank" rel="noopener noreferrer">{lang === "ar" ? "مساعدة بالاختيار؟ واتساب نبض" : "NEED A HAND? TALK TO NAPD"}</a></div>
     <header className="ed4-header" dir="ltr" lang="en">
       <nav className="ed4-header-links" aria-label="Main navigation"><Link href="/rings">Shop</Link><Link href="/#collection">Collections</Link><button type="button" onClick={(e) => open("about", e.currentTarget)}>About</button></nav>
       <Link href="/" className="ed4-brand" aria-label="NAPD Jewelry"><span>NAPD</span><small>JEWELRY</small></Link>
