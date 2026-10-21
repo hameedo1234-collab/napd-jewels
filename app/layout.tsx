@@ -14,6 +14,8 @@ import { OCCASION_COLUMNS, pickOccasion, todayInPalestine, type Occasion } from 
 import { cookies, headers } from "next/headers";
 import { detectLang, LANG_COOKIE } from "@/lib/i18n";
 
+const instrument = localFont({ variable: "--font-instrument", display: "swap", src: [{ path: "./fonts/InstrumentSans-Regular.ttf", weight: "400", style: "normal" }] });
+
 // A solid geometric sans for every Latin line (body, labels, buttons).
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -125,7 +127,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} data-occasion={occasion?.theme}>
       <body
-        className={`${montserrat.variable} ${cinzel.variable} ${dmSans.variable} ${cormorant.variable} ${bodoni.variable} ${pinyon.variable} ${arDisplay.variable} ${arScript.variable} ${arSans.variable} antialiased bg-white min-h-screen flex flex-col`}
+        className={`${instrument.variable} ${montserrat.variable} ${cinzel.variable} ${dmSans.variable} ${cormorant.variable} ${bodoni.variable} ${pinyon.variable} ${arDisplay.variable} ${arScript.variable} ${arSans.variable} antialiased bg-white min-h-screen flex flex-col`}
       >
         <LangProvider initial={lang}>
           <OccasionProvider initial={occasion}>
