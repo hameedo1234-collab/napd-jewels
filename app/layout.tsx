@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, DM_Sans, Montserrat } from "next/font/google";
+import { Cinzel, DM_Sans, Montserrat, Instrument_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./editorial.css";
@@ -13,6 +13,8 @@ import { supabase } from "@/lib/supabase";
 import { OCCASION_COLUMNS, pickOccasion, todayInPalestine, type Occasion } from "@/lib/occasion";
 import { cookies, headers } from "next/headers";
 import { detectLang, LANG_COOKIE } from "@/lib/i18n";
+
+const instrument = Instrument_Sans({ variable: "--font-instrument", subsets: ["latin"], display: "swap", weight: "400" });
 
 // A solid geometric sans for every Latin line (body, labels, buttons).
 const montserrat = Montserrat({
@@ -125,7 +127,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} data-occasion={occasion?.theme}>
       <body
-        className={`${montserrat.variable} ${cinzel.variable} ${dmSans.variable} ${cormorant.variable} ${bodoni.variable} ${pinyon.variable} ${arDisplay.variable} ${arScript.variable} ${arSans.variable} antialiased bg-white min-h-screen flex flex-col`}
+        className={`${instrument.variable} ${montserrat.variable} ${cinzel.variable} ${dmSans.variable} ${cormorant.variable} ${bodoni.variable} ${pinyon.variable} ${arDisplay.variable} ${arScript.variable} ${arSans.variable} antialiased bg-white min-h-screen flex flex-col`}
       >
         <LangProvider initial={lang}>
           <OccasionProvider initial={occasion}>
