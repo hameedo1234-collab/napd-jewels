@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, DM_Sans, Montserrat } from "next/font/google";
+import { Cinzel, DM_Sans, Montserrat, Instrument_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./editorial.css";
@@ -14,7 +14,7 @@ import { OCCASION_COLUMNS, pickOccasion, todayInPalestine, type Occasion } from 
 import { cookies, headers } from "next/headers";
 import { detectLang, LANG_COOKIE } from "@/lib/i18n";
 
-const instrument = localFont({ variable: "--font-instrument", display: "swap", src: [{ path: "./fonts/InstrumentSans-Regular.ttf", weight: "400", style: "normal" }] });
+const instrument = Instrument_Sans({ variable: "--font-instrument", subsets: ["latin"], display: "swap", weight: "400" });
 
 // A solid geometric sans for every Latin line (body, labels, buttons).
 const montserrat = Montserrat({
