@@ -65,10 +65,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-serif tracking-[0.2em] text-black">
-            LOGIN
+            OWNER SIGN IN
           </h1>
           <p className="text-sm text-black/60 mt-2">
-            Welcome back to NAPD Jewels
+            Private access to store orders and administration.
           </p>
         </div>
 
@@ -116,13 +116,8 @@ export default function LoginPage() {
             </button>
 
             <div className="text-center text-sm text-black/60">
-              Don’t have an account?{" "}
-              <Link
-                href="/register"
-                className="underline underline-offset-4 hover:text-napd-emerald"
-              >
-                Create one
-              </Link>
+              Shopping with NAPD?{" "}
+              <Link href="/account" className="underline underline-offset-4 hover:text-napd-emerald">Customer account</Link>
             </div>
           </form>
         </div>

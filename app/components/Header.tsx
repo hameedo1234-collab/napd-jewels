@@ -328,7 +328,7 @@ export default function Header() {
             {/* Account / Login (desktop only) */}
             {!authLoading && !userId ? (
               <Link
-                href="/login"
+                href="/account"
                 className="napd-caps hidden lg:inline-flex items-center justify-center text-[12px] text-napd-ink/75 transition-colors duration-200 hover:text-napd-ink"
               >
                 {t("nav.login")}
@@ -358,6 +358,7 @@ export default function Header() {
                     id="napd-account-menu"
                     className="absolute end-0 mt-3 w-44 overflow-hidden border border-napd-ink/10 bg-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.25)]"
                   >
+                    {!isOwner && <Link href="/account" className="napd-caps block px-4 py-3 text-[12px] text-napd-ink hover:bg-napd-paper">{t("nav.account")}</Link>}
                     {isOwner && <>
                       <Link href="/owner/orders" className="napd-caps block px-4 py-3 text-[12px] text-napd-ink hover:bg-napd-paper">{t("nav.orders")}{newOrdersCount > 0 ? ` (${newOrdersCount})` : ""}</Link>
                       <Link href="/owner-dashboard" className="napd-caps block px-4 py-3 text-[12px] text-napd-ink hover:bg-napd-paper">{t("nav.dashboard")}</Link>
@@ -464,7 +465,7 @@ export default function Header() {
           {/* Login / Account + Logout */}
           {!authLoading && !userId ? (
             <Link
-              href="/login"
+              href="/account"
               className="napd-pill w-full"
               onClick={() => setIsOpen(false)}
             >
@@ -475,6 +476,8 @@ export default function Header() {
               <div className="text-center text-sm text-napd-muted">
                 {authLoading ? "..." : displayName}
               </div>
+
+              {!isOwner && <Link href="/account" className="napd-pill w-full" onClick={() => setIsOpen(false)}>{t("nav.account")}</Link>}
 
               <button
                 type="button"

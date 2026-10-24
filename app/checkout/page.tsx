@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "../context/CartContext";
@@ -51,6 +51,26 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    async function prefillCustomer() {
+      const { data } = await supabase.auth.getSession();
+      const user = data.session?.user;
+      if (!active || !user) return;
+      if (user.email) setEmail((current) => current || user.email || "");
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("full_name")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (!active) return;
+      const name = profile?.full_name || user.user_metadata?.full_name;
+      if (typeof name === "string") setFullName((current) => current || name);
+    }
+    void prefillCustomer();
+    return () => { active = false; };
+  }, []);
 
   const shipping = SHIPPING[deliveryArea];
 
@@ -113,9 +133,9 @@ export default function CheckoutPage() {
         mail ? `Email: ${mail}` : null,
       ].filter(Boolean);
 
-      const { data: orderId, error } = await supabase.rpc(
-        "place_order_only",
-        {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const orderRpc = sessionData.session?.user ? "place_order_for_customer" : "place_order_only";
+      const { data: orderId, error } = await supabase.rpc(orderRpc, {
           p_customer_name: name,
           p_customer_phone: phone,
           p_city: city,
@@ -125,8 +145,7 @@ export default function CheckoutPage() {
           p_total: total,
           p_notes: notesLines.join(" | "),
           p_items: itemsPayload,
-        }
-      );
+        });
 
       if (error) {
         throw new Error(error.message);
@@ -204,6 +223,10 @@ export default function CheckoutPage() {
       <div className="max-w-5xl mx-auto p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="border border-black/10 rounded-2xl p-6">
           <h1 className="text-3xl font-serif mb-6">Checkout</h1>
+
+          <p className="mb-5 text-sm text-black/60">
+            Have a NAPD account? <Link href="/account" className="underline underline-offset-4">Sign in</Link> to prefill your details. Guest checkout is also available.
+          </p>
 
           <div className="space-y-4">
             <input
