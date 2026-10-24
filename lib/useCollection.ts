@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 import { homepageOrder, inStock, type ListingProduct } from "./productDisplay";
 
-const cache = new Map<string, Promise<ListingProduct[]>>();
+const cache = new Map<string, { until: number; rows: Promise<ListingProduct[]> }>();
 
 function fetchCollection(categoryName: string) {
   const key = categoryName.toUpperCase();
-  if (!cache.has(key)) {
+  if (!cache.has(key) || cache.get(key)!.until <= Date.now()) {
     cache.set(
       key,
-      (async () => {
+      { until: Date.now() + 55_000, rows: (async () => {
         const { data: cat } = await supabase
           .from("categories")
           .select("id")
@@ -25,16 +25,17 @@ function fetchCollection(categoryName: string) {
           )
           .eq("category_id", cat.id)
           .eq("is_active", true)
+          .gt("quantity", 0)
           .order("created_at", { ascending: false });
         if (error) {
           console.error(`Failed to load ${key}:`, error.message);
           return [];
         }
         return ((data as ListingProduct[]) || []).filter(inStock).sort(homepageOrder);
-      })()
+      })() }
     );
   }
-  return cache.get(key)!;
+  return cache.get(key)!.rows;
 }
 
 /** In-stock pieces of one category, shared between components on a page. */
@@ -44,12 +45,19 @@ export function useCollection(categoryName: string) {
 
   useEffect(() => {
     let alive = true;
+    const refresh = () => { if (document.visibilityState === "hidden") return;
     fetchCollection(categoryName).then((rows) => {
       if (!alive) return;
       setItems(rows);
       setLoading(false);
     });
+    };
+    refresh();
+    const timer = window.setInterval(refresh, 60_000);
+    document.addEventListener("visibilitychange", refresh);
     return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", refresh);
       alive = false;
     };
   }, [categoryName]);
